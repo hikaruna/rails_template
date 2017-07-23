@@ -20,6 +20,8 @@ gem 'foreman'
 gem 'slim-rails'
 gem 'seedbank'
 
+gsub_file 'Gemfile', "gem 'sass-rails'", "#gem 'sass-rails'"
+
 directory "#{resource_path}/init", '.'
 run 'rm -rf .bundle'
 
@@ -51,12 +53,18 @@ after_bundle do
   application_multiline <<-RUBY
   config.generators do |g|
     g.helper false
-    g.stylesheets false
-    g.javascripts false
+    g.stylesheet_engine :webpack_sass
+    g.javascript_engine :webpack_js
     g.test_framework :rspec, view_specs: false, helper_specs: false, request_specs: false
   end
   RUBY
 
+  run <<-EOS
+echo "import '../app-styles'" >> app/javascript/packs/application.js
+  EOS
+
+
+  # bootstrap の設定
   run 'yarn add bootstrap-sass'
 
   git :init
