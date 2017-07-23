@@ -34,8 +34,7 @@ after_bundle do
   gsub_file 'app/views/layouts/application.html.erb',
             "<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>",
             "<%= javascript_pack_tag 'application' %>"
-
-  run 'bundle exec erb2slim app/views/'
+  run 'bundle exec erb2slim --delete app/views/'
 
   # application メソッドに複数行の文字列渡すとインデントがおかしくなるので調整
   def application_multiline(data, options = {})
