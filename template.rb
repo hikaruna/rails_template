@@ -59,10 +59,9 @@ after_bundle do
   end
   RUBY
 
-  run <<-EOS
-echo "import '../app-styles'" >> app/javascript/packs/application.js
-  EOS
-
+  inject_into_file 'app/javascript/packs/application.js', before: /\A/ do
+    "import '../app-styles'\n"
+  end
 
   # bootstrap の設定
   run 'yarn add bootstrap-sass'
