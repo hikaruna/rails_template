@@ -1,0 +1,1 @@
+-m ./template.rb --skip-coffee  --skip-javascript  --skip-turbolinks  --skip-test  --skip-system-test

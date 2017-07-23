@@ -1,0 +1,8 @@
+/.bundle
+/vendor/bundle
+
+# sample hoge project
+/hoge
+
+# rubymineで開いちゃったときのため
+/.idea

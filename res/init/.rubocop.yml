@@ -1,0 +1,15 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+Rails:
+  Enabled: true
+
+Style/BlockDelimiters:
+  Enabled: false
+  Include:
+    - "spec/**/*"
+
+Metrics/BlockLength:
+  Enabled: false
+  Include:
+    - "spec/**/*"
