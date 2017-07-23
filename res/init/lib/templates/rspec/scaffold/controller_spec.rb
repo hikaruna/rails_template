@@ -18,8 +18,8 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
 <% unless options[:singleton] -%>
   describe 'GET #index' do
-    let(:<%= ns_file_name %>) { create_list :<%= file_name %>, 3 }
-    before { <%= ns_file_name %> }
+    let(:<%= plural_file_name %>) { create_list :<%= file_name %>, 3 }
+    before { <%= plural_file_name %> }
     subject(:response) {
 <% if Rails::VERSION::STRING < '5.0' -%>
       get :index, {}, valid_session
@@ -30,10 +30,10 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     it { is_expected.to be_success }
     it { is_expected.to render_template :index }
 
-    describe '@<%= ns_file_name %>' do
+    describe '@<%= plural_file_name %>' do
       before { response }
-      subject { assigns(:<%= ns_file_name %>) }
-      it { is_expected.to eq <%= ns_file_name %> }
+      subject { assigns(:<%= plural_file_name %>) }
+      it { is_expected.to eq <%= plural_file_name %> }
     end
   end
 
@@ -41,7 +41,6 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   describe 'GET #show' do
     let(:<%= file_name %>) { create :<%= file_name %> }
     subject(:response) {
-      <%= file_name %> = <%= class_name %>.create! valid_attributes
 <% if Rails::VERSION::STRING < '5.0' -%>
       get :show, {:id => <%= file_name %>.to_param }, valid_session
 <% else -%>
@@ -80,7 +79,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 <% end -%>
     }
     it { is_expected.to be_success }
-    it { is_expected.to render_template :new }
+    it { is_expected.to render_template :edit }
   end
 
   describe 'POST #create' do
@@ -93,7 +92,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     }
     context 'with valid params' do
       let(:params) { valid_attributes }
-      it { is_expected.to redirect_to <%= class_name %> }
+      it { is_expected.to redirect_to <%= class_name %>.last }
       it 'creates a new <%= class_name %>' do
         expect { response }.to change { <%= class_name %>.count }.by(1)
       end
@@ -117,11 +116,11 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     subject(:response) {
 <% if Rails::VERSION::STRING < '5.0' -%>
       put :update,
-          { :id => <%= file_name %>.to_param, :<%= ns_file_name %> => new_attributes },
+          { :id => <%= file_name %>.to_param, :<%= plural_file_name %> => new_attributes },
           valid_session
 <% else -%>
       put :update,
-          params: { id: <%= file_name %>.to_param, <%= ns_file_name %>: new_attributes },
+          params: { id: <%= file_name %>.to_param, <%= plural_file_name %>: new_attributes },
           session: valid_session
 <% end -%>
     }
@@ -131,7 +130,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
       }
       it { is_expected.to redirect_to <%= file_name %> }
 
-      xit 'updates the requested <%= ns_file_name %>' do
+      xit 'updates the requested <%= plural_file_name %>' do
         expect {
           response
           <%= file_name %>.reload
@@ -148,7 +147,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
         invalid_attributes
       }
       it { is_expected.to be_success }
-      it 'does updates the requested <%= ns_file_name %>' do
+      it 'does updates the requested <%= plural_file_name %>' do
         expect { response }.to_not(change { <%= class_name %>.find(<%= file_name %>.id) })
       end
     end
@@ -156,6 +155,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
   describe 'DELETE #destroy' do
     let(:<%= file_name %>) { create :<%= file_name %> }
+    before { <%= file_name %> }
     subject(:response) {
 <% if Rails::VERSION::STRING < '5.0' -%>
       delete :destroy, {:id => <%= file_name %>.to_param }, valid_session
@@ -164,7 +164,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 <% end -%>
     }
     it { is_expected.to redirect_to <%= index_helper %>_url }
-    it 'destroys the requested <%= ns_file_name %>' do
+    it 'destroys the requested <%= plural_file_name %>' do
       expect { response }.to(change { <%= class_name %>.count }.by(-1))
     end
   end
