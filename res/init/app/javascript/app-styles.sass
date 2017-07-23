@@ -1,1 +1,10 @@
+// アプリケーションでグローバルなstyleをここに書く
+// ViewごとのStyleはここには書かない
+
 @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss'
+
+// htmlはbootstrapで直接マークアップせずextendを使ってデザインする
+// 例だが、tableにスタイルを当てるのは本当は良くないので
+// 独自のクラスなどに対して行うこと
+table
+  @extend .table
