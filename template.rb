@@ -5,6 +5,10 @@ resource_path = "#{File.dirname(__FILE__)}/res"
 gem_group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+
+  # Rails 5では、assignsとassert_templateが削除されています
+  # Gemfileでライブラリを追加する必要があります
+  gem 'rails-controller-testing'
 end
 
 gem_group :development do
