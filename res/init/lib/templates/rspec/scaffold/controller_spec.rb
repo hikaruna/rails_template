@@ -32,7 +32,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
     describe '@<%= ns_file_name %>' do
       before { response }
-      subject { assings(:<%= ns_file_name %>) }
+      subject { assigns(:<%= ns_file_name %>) }
       it { is_expected.to eq <%= ns_file_name %> }
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
     describe '@<%= file_name %>' do
       before { response }
-      subject { assings(:<%= file_name %>) }
+      subject { assigns(:<%= file_name %>) }
       it { is_expected.to eq <%= file_name %> }
     end
   end
