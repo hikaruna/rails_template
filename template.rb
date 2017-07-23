@@ -53,7 +53,7 @@ after_bundle do
     g.helper false
     g.stylesheets false
     g.javascripts false
-    g.test_framework :rspec, helper_specs: false, request_specs: false
+    g.test_framework :rspec, view_specs: false, helper_specs: false, request_specs: false
   end
   RUBY
 
