@@ -35,11 +35,11 @@ end
 
 after_bundle do
   gsub_file 'app/views/layouts/application.html.erb',
-            "<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>",
-            "<%= stylesheet_pack_tag 'application' %>"
-  gsub_file 'app/views/layouts/application.html.erb',
-            "<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>",
-            "<%= javascript_pack_tag 'application' %>"
+            "<%= stylesheet_link_tag    'application', media: 'all' %>",
+            "<%= stylesheet_pack_tag 'application', media: 'all' %>"
+  inject_into_file 'app/views/layouts/application.html.erb', before: "</head>" do
+    "<%= javascript_pack_tag 'application' %>"
+  end
   run 'bundle exec erb2slim --delete app/views/'
 
   # application メソッドに複数行の文字列渡すとインデントがおかしくなるので調整
